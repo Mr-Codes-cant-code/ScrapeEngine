@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ScrapeEngine Documentation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="WebAssets/css/index.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar_wrapper">
+        <div class="title_wrapper">
+          <h1>
+            <a href="">ScrapeEngine</a>
+            <img src="WebAssets/images/github.svg" alt="p">
+          </h1>
+        </div>
+        <div class="items_wrapper">
+          <a href="#getting-started">Getting Started</a>
+          <a href="#operations-guide">Operations Guide</a>
+          <a href="#the-get-and-getall-function">Get and GetAll</a>
+          <a href="#the-gethref-and-getallhref-function">GetH & GetAllH</a>
+          <a href="#attribute-collectors" ><!--class="with-sub-heading"  <button onClick="attr_collect_subt_show()"><svg fill="#aaa" width="12px" height="12px" id="attribute-collectors" transform="rotate(90, 0, 0)" class="sub-heading-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21,21H3L12,3Z"/></svg></button>-->Attribute Collectors</a>
+          <a href="#hasattr-function">HasAttribute</a>
+          <a href="#recommendation">Recommendations</a>
+          <a href="#conclusion">Conclusion</a>
+          <a href="" id="github-link">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="mains_area_wrapper">
+      <div class="mains_area">
+        <h1 class="main_title">ScrapeEngine&nbsp; Documentation</h1>
+        <p>ScrapeEngine is a Python library that acts as a <a href="https://pypi.org/project/beautifulsoup4/">BeautifulSoup</a> wrapper to simplify the process of web-scraping. It is designed to be an alternative to <a href="https://pypi.org/project/pyppeteer/">Pyppeteer</a> which is currently unmaintained. While it doesn't have the flexibility of element interaction like Pyppeteer, it does compensate with speed. This document is a short introduction on how you can use ScrapeEngine to automate simple scraping tasks.</p>
+        <div class="image_right_cropped">
+          <img width="512" alt="Ancient Mandarin Officer cum Mail Courier riding a horse" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Ancient_Mandarin_Officer_cum_Mail_Courier_riding_a_horse.png/512px-Ancient_Mandarin_Officer_cum_Mail_Courier_riding_a_horse.png?20221221043842">
+        </div>
+        <br>
+        <p>Let's first begin with how ScrapeEngine works. 'ScrapeEngine' is infact a class that when invoked, creates an HTTP request for the url provided including parameters if any. It then lets you, to perform operations on the returned html.<br><br>Here are some of the advantages of ScrapeEngine:<br>
+        <ul>
+          <li>ScrapeEngine when compared to Pyppeteer, shows exceptional runtimes which is essential for programs where runtime in critical.</li>
+          <li>Majority of web-scraping tasks can be deployed through it, as the ability of posting parameters and getting href's from elements lets you perform most of your desired needs.</li>
+          <li>A major advantage is that most websites can be scraped, even those with bot detectors, as ScrapeEngine HTTP requests the website rather than crawling through it using a headless browser. Though in certain cases a website may not send the same page as when a human views it through an actual browser.</li>
+          <li>The main advantage of ScrapeEngine is its simplicity. You don't need to be a rocket scientist to use it. Even newborns can use ScrapeEngine to scrape poems from a website!</li>
+        </ul>
+        </p>
+        <p>Now that enough praise has been said about ScrapeEngine, let begin with the actual documentation on how to use it.</p>
+        <h2 class="section_title" id="getting-started">Getting Started</h2>
+        <p>There are only 3 dependencies for ScrapeEngine, one is the 'ScrapeEngine.py' file to be present in the working directory. Second is to have the BeautifulSoup4 and requests package to be installed on the device. If you don't have the packages installed simply run the following command in the terminal:<br></p>
+        <div class="code_container">
+          <button class="copy_btn" id="copy-pip-i-bs4-requests"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>
+          </button>
+          <div class="copied_part" id="cp-pip-i-bs4-requests">
+            <p> Copied </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Check_mark_%28black%29.svg" alt="Copied" class="copied_tick">
+          </div>
+          <div class="code_box" id="pip-i-bs4-requests">
+            <code>pip install beautifulsoup4 requests</code>
+          </div>
+        </div>
+        <p>That's it! Now here is where the fun starts. To use ScrapeEngine, you need to first import it from the 'ScrapeEngine.py' file. After importing, you can now call it as a class giving it any suitable name that you might want along with the url of the website to be scraped and the parameters usually fit in a dictionary. After these steps you can now perform a range of available operations on it.</p>
+        <br>
+        <p> Given below is a simple example of the usage of ScrapeEngine:</p>
+        <div class="code_container">
+          <button class="copy_btn" id="copy-getting-started"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>
+          </button>
+          <div class="copied_part" id="cp-getting-started">
+            <p> Copied </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Check_mark_%28black%29.svg" alt="Copied" class="copied_tick">
+          </div>
+          <div class="code_box" id="getting-started-code">
+            <code>from ScrapeEngine import ScrapeEngine<br><br>crawler = ScrapeEngine('https://www.scrapethissite.com/pages/simple/')<br><br>title = crawler.GetTitle()<br><br>print(title)<br><code class="code_comment"># Response: Countries of the World: A Simple Example | Scrape This Site | A public sandbox for learning web scraping</code></code>
+          </div>
+        </div>
+        <p>Yes that just took less than 4 seconds! For comparison when I tried with <a href="https://pptr.dev/">Puppeteer</a> in Javascript, it took 8 seconds. This might not seem much of a difference but when you need to do this hundreds of times, it adds up.</p>
+        <h2 class="section_title" id="operations-guide">Operations Guide</h2>
+        <div class="image_right_cropped" id="operations_guide_image">
+          <img width="512" alt="Ancient Mandarin Officer cum Mail Courier riding a horse" src="https://upload.wikimedia.org/wikipedia/commons/9/95/DALL%C2%B7E_-_Illustration_of_Chinese_postman_in_the_past_riding_a_mulepack_to_deliver_letters%2C_wood_engraving.png">
+        </div>
+        <p>Now that you have learned to invoke ScrapeEngine, you need to know its limitations. The major drawback is that ScrapeEngine lacks element interaction which means you cannot perform actions like clicking on buttons or submitting forms that don't take parameters on dashboard. When you first invoke ScrapeEngine in a variable, its content doesn't change. Instead you need to invoke it again incase there is a change in url or you need to load it again with parameters.<br>
+        <br>
+        Incase you find yourself in need for interaction with elements, you could use Puppeteer to do this, but it drastically increases the runtime. In this case however, it is much better to play around and find a work around which you can usually find by reading the href content which is included in ScrapeEngine. Now lets take a look at the functions ScrapeEngine offers.</p>
+        <h2 class="section_title" id="the-get-and-getall-function">The Get and GetAll function</h2>
+        <p>The Get and GetAll functions are extremely useful functions to get the text from a specific element. You just invoke ScrapeEngine and use the Get or GetAll function like in the given example: </p>
+        <div class="code_container">
+          <button class="copy_btn" id="copy-get-getall-example"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>
+          </button>
+          <div class="copied_part" id="cp-get-getall-example">
+            <p> Copied </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Check_mark_%28black%29.svg" alt="Copied" class="copied_tick">
+          </div>
+          <div class="code_box" id="get-getall-example">
+            <code>from ScrapeEngine import ScrapeEngine<br><br>crawler = ScrapeEngine('https://www.scrapethissite.com/pages/forms/')<br><br><code class="code_comment"># Returns the text from the first h1 element found in the page</code><br>page_title = crawler.Get('h1')<br><code class="code_comment"># Returns all the text from table data cells with class 'name' found in the page</code><br>team_names = crawler.GetAll('td.name')<br><br>print(page_title, team_names)</code>
+          </div>
+        </div>
+        <p>If no suitable element is found, None is returned. Note only html elements can be traced. For elements with class use it as </p>        <div class="code_container">
+          <div class="code_box">
+            <code class='code'>element_name.class</code>
+          </div>
+        </div>
+        <p>for example, 'td.name'. For elements with id, use '#' instead of dot. <br>Get function repeatedly gets the same output from the page. <br>Suppose you know the path of the element, use the '>' symbol to signify parent-child relation for example:</p> 
+        <div class="code_container">
+          <div class="code_box">
+            <code class='code'>'tr.teams > td'</code>
+          </div>
+        </div>
+        <h2 class="section_title" id="the-gethref-and-getallhref-function">The GetHref and GetAllHref function</h2>
+        <div id="geth-sec-text-img-box">
+          <div id="wrapper-img-right">
+            <img width="512" alt="Frog" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Jumping_Frog_True_Williams_1875.jpg">
+          </div>
+          <div class="text_right_aligned">
+            Note: ScrapeEngine is designed to be beginner-friendly. If you wish to learn more, I highly recommend you to learn scraping with requests and parsing with BeautifulSoup.
+          </div>
+        </div>
+        </div>
+        <p>The GetHref and GetAllHref functions are used to get the href links from any element primarily an 'a' element. Imagine it as an extension to the <a href="#the-get-and-getall-function">Get and GetAll</a> function. Instead of the inner text, it returns the href content. An example is given below.</p>
+        <div class="code_container" id="gethref-getallhref-function-special">
+          <button class="copy_btn" id="copy-gethref-getallhref-function-special"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>
+          </button>
+          <div class="copied_part" id="cp-gethref-getallhref-function-special">
+            <p> Copied </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Check_mark_%28black%29.svg" alt="Copied" class="copied_tick">
+          </div>
+          <div class="code_box">
+            <code>from ScrapeEngine import ScrapeEngine<br><br>crawler = ScrapeEngine('https://khalid-azmatullah.github.io/-/')<br><br><code class="code_comment"># Returns a string</code><br>print(crawler.GetHref('a.btn'))<br><br><code class="code_comment"># Returns a List</code><br>print(crawler.GetAllHref('div.sidenav > a'))</code>
+          </div>
+        </div>
+        <p>You must now be realising how easy it is to scrape with ScrapeEngine. But don't leave just yet. You need to learn about your new found powers and its limitations or you <a href="https://www.youtube.com/watch?v=MNeX4EGtR5Y&t=61s">might shoot yourself in the foot</a>.</p>
+        <p>Jokes aside, ScrapeEngine is extremely basic and rudimentary in nature and I suggest you use it only to enter the Web Scraping world with ease.</p>
+        <h2 class="section_title" id="attribute-collectors">Attribute Collectors</h2>
+        <p>There are several attribute collectors in ScrapeEngine while <a href="#the-gethref-and-getallhref-function">GetHref and GetAllHref</a> are two of them, there are others you might find useful.</p>
+        <h3 class="sub_section_title">GetElementName</h3>
+        <p>If you have the class or id of an element, you can find its name using this function. Note that this function has two calls, 'CssSelector' is the base call, while 'Text' is the second call. Examples for both of these is given below:</p>
+        <br>
+        <div class="code_container">
+          <button class="copy_btn" id="copy-get-ele-nm-example"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>
+          </button>
+          <div class="copied_part" id="cp-get-ele-nm-example">
+            <p> Copied </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Check_mark_%28black%29.svg" alt="Copied" class="copied_tick">
+          </div>
+          <div class="code_box" id="get-ele-nm-example">
+            <code>from ScrapeEngine import ScrapeEngine<br><br>crawler = ScrapeEngine('https://khalid-azmatullah.github.io/-/')<br><br><code class="code_comment"># Returns a List of condition abiding element names.</code><br>article_title_element = crawler.GetElementName('My first Blog!', Call='Text')<br>button_element = crawler.GetElementName('.btn')<br><br>print(article_title_element, button_element)</code>
+          </div>
+        </div>
+        <h3 class="sub_section_title">GetTitle</h3>
+        <p>Returns the title of the page. Can be used anytime after ScrapeEngine is invoked.</p>
+        <div class="code_container">
+          <div class="code_box">
+            <code class='code'>page_title = crawler.GetTitle()</code>
+          </div>
+        </div>
+        <h3 class="sub_section_title">GetHeadData</h3>
+        <p>Returns all the content of the head tag. This content can then, be further worked upon by using BeautifulSoup or optionally ScrapeEngine by submitting this content as 'Url' and changing from the default 'State' of 'Scrapper' to 'Parser' when invoking ScrapeEngine. An example using the second method is given below:</p>
+        <div class="code_container">
+          <button class="copy_btn" id="copy-get-head-example"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>
+          </button>
+          <div class="copied_part" id="cp-get-head-example">
+            <p> Copied </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Check_mark_%28black%29.svg" alt="Copied" class="copied_tick">
+          </div>
+          <div class="code_box" id="get-head-example">
+            <code>from ScrapeEngine import ScrapeEngine<br><br>crawler = ScrapeEngine('https://khalid-azmatullah.github.io/-/')<br><br><code class="code_comment"># Returns a string of head tag content.</code><br>head_data = crawler.GetHeadData()<br><br> <code class="code_comment"># Pass this data once again through ScrapeEngine</code><br>parser = ScrapeEngine(Url=head_data, State="Parser")<br><br>print(parser.Get('title'))</code>
+          </div>
+        </div>
+        <h3 class="sub_section_title">GetAllData</h3>
+        <p>This function usually returns a nested list of child data which like the above data can be passed through ScrapeEngine with 'Parser' as State.</p>
+        <div class="code_container">
+          <div class="code_box">
+            <code class='code'>children_data = crawler.GetAllData('<i>tag</i>')</code>
+          </div>
+        </div>
+
+        <h3 class="sub_section_title">GetAttributes</h3>
+        <p>Imagin it as the <a href="https://www.youtube.com/watch?v=HWqKPWO5T4o&t=14s">God Father</a> of all the above functions. It returns a list of dictionaries of all condition abiding elements. An example is given below:</p>
+        <div class="code_container">
+          <button class="copy_btn" id="copy-get-attr-example"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 5C7 3.34315 8.34315 2 10 2H19C20.6569 2 22 3.34315 22 5V14C22 15.6569 20.6569 17 19 17H17V19C17 20.6569 15.6569 22 14 22H5C3.34315 22 2 20.6569 2 19V10C2 8.34315 3.34315 7 5 7H7V5ZM9 7H14C15.6569 7 17 8.34315 17 10V15H19C19.5523 15 20 14.5523 20 14V5C20 4.44772 19.5523 4 19 4H10C9.44772 4 9 4.44772 9 5V7ZM5 9C4.44772 9 4 9.44772 4 10V19C4 19.5523 4.44772 20 5 20H14C14.5523 20 15 19.5523 15 19V10C15 9.44772 14.5523 9 14 9H5Z" fill="currentColor"></path></svg>
+          </button>
+          <div class="copied_part" id="cp-get-attr-example">
+            <p> Copied </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/81/Check_mark_%28black%29.svg" alt="Copied" class="copied_tick">
+          </div>
+          <div class="code_box" id="get-attr-example">
+            <code>from ScrapeEngine import ScrapeEngine<br><br>crawler = ScrapeEngine('https://khalid-azmatullah.github.io/-/')<br><br><code class="code_comment"># Returns condition abiding 'a' element attributes.</code><br>print(crawler.GetAttributes('a'))</code>
+          </div>
+        </div>
+        <p>Note that this function needs more refining.</p>
+        <h2 class="section_title" id="hasattr-function">HasAttribute function</h2>
+        <div class="image_right_cropped" id="hasattr-image">
+          <img width="512" alt="Ancient Mandarin Officer cum Mail Courier riding a horse" src="https://upload.wikimedia.org/wikipedia/commons/6/62/Sketches%2C_New_and_Old._p178.jpg">
+        </div>
+        <p>The HasAttribute function is used to check if a certain element has a specific attribute or not. It has limited use cases but might prove useful in certain conditions. It has 2 requirements, first is the 'Selector' in which you feed the element name or class and second is the 'Attribute' you need to check. I suggest you don't use this function as it frequently throws errors that are difficult to bypass.</p>
+        <br>
+        <p>With this you have now learned all the important and useful functions ScrapeEngine provides. If you have any complaints or recommendations, please raise an issue an github.</p>
+        <br>
+        <p>That's ScrapeEngine for you!</p>
+        <br>
+        <h2 class="section_title" id="recommendation">Recommendations</h2>
+        <p>Now that you are versed in ScrapeEngine's capabilities, let me provide you with some recommendations. First of all, ScrapeEngine has 'DefaultHeaders' which are applied by default. These headers are applied so as to spoof the website into thinking that the request is made by a human. You can test it by scraping the <a href="https://www.scrapethissite.com/pages/advanced/?gotcha=headers">Spoofing headers</a> page in <a href="https://www.scrapethissite.com/">scrapethissite.com</a>. However, if you want you can import DefaultHeaders from ScrapeEngine and append or add conditions to the headers. Given below are the DefaultHeaders ScrapeEngine currently uses.</p>
+        <div class="code_container">
+          <div class="code_box">
+            <code class='code'>{<br>&nbsp;&nbsp;
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 <br>&nbsp;&nbsp;&nbsp;&nbsp;(KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36',<br>&nbsp;&nbsp;
+    'Accept-Language': 'en-US,en;q=0.9',<br>&nbsp;&nbsp;
+    'Accept-Encoding': 'utf-8',<br>&nbsp;&nbsp;
+    'Connection': 'keep-alive',<br>&nbsp;&nbsp;
+    'Upgrade-Insecure-Requests': '1',<br>&nbsp;&nbsp;
+    'DNT': '1',<br>&nbsp;&nbsp;
+    'Cache-Control': 'max-age=0',<br>&nbsp;&nbsp;
+    'Accept': 'text/html,application/xhtml+xml,<br>&nbsp;&nbsp;&nbsp;&nbsp;application/xml;q=0.9,image/webp,*/*;q=0.8'<br>
+}</code>
+          </div>
+        </div>
+        <p>Also ScrapeEngine accepts parameters which can be included while invoking ScrapeEngine. You can play around and try other things unique to web-scrapping, I suggest you take a look at the code I have written for ScrapeEngine and start using requests and BeautifulSoup to perform scraping tasks in a flexible and raw manner.</p>
+
+        <h2 class="section_title" id="conclusion">Conclusion</h2>
+
+        <p>ScrapeEngine provides a simple and efficient way to perform web scraping tasks, offering a user-friendly interface for beginners to get started quickly. With its impressive speed and ease of use, it stands as a solid alternative to more complex and unmaintained solutions like Pyppeteer. While it lacks some advanced features like element interaction, ScrapeEngine compensates with powerful functions for retrieving data from various HTML elements and attributes. By combining it with other tools like BeautifulSoup, you can further enhance your scraping capabilities. <br><br> Thank you for reading and happy scraping!</p>
+      </div>
+    </div>
+    <div class="footer_wrapper">
+      <div class="footer">
+        An Independent creation.
+      </div>
+    </div>
+
+  <script src="WebAssets/javascript/index.js"></script>
+      
+      </div>
+    </div>
+    
+  </body>
+</html>
